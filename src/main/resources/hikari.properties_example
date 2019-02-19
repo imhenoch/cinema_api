@@ -1,0 +1,6 @@
+dataSourceClassName=org.postgresql.ds.PGSimpleDataSource
+dataSource.user=keep
+dataSource.password=your
+dataSource.databaseName=secrets
+dataSource.portNumber=5432
+dataSource.serverName=localhost
