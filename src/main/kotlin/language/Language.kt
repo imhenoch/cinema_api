@@ -8,6 +8,6 @@ object Languages : Table() {
 }
 
 data class Language(
-    val id: Int,
+    val id: Int?,
     val language: String
 )
