@@ -29,10 +29,6 @@ fun Application.main() {
     }
 }
 
-/* fun main() {
-    embeddedServer(Netty, port = 8080, module = Application::main).start()
-} */
-
 class Main {
     companion object {
         @JvmStatic
