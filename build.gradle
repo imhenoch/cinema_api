@@ -11,6 +11,7 @@ buildscript {
     ext.exposed_version = '0.12.1'
     ext.postgresql_version = '42.2.2'
     ext.hikaricp_version = '3.3.1'
+    ext.slf4_version = '1.6.1'
 
     repositories {
         mavenCentral()
@@ -44,4 +45,6 @@ dependencies {
     implementation "org.postgresql:postgresql:$postgresql_version"
     implementation "org.jetbrains.exposed:exposed:$exposed_version"
     implementation "com.zaxxer:HikariCP:$hikaricp_version"
+
+    implementation "org.slf4j:slf4j-simple:$slf4_version"
 }
