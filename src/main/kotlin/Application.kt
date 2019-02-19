@@ -6,13 +6,13 @@ import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.jackson.jackson
+import io.ktor.network.tls.certificates.generateCertificate
 import io.ktor.routing.Routing
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
 import language.LanguageService
 import language.language
+import java.io.File
 
-fun Application.module() {
+fun Application.main() {
     install(DefaultHeaders)
     install(CallLogging)
 
@@ -29,6 +29,20 @@ fun Application.module() {
     }
 }
 
-fun main() {
-    embeddedServer(Netty, port = 8080, module = Application::module).start()
+/* fun main() {
+    embeddedServer(Netty, port = 8080, module = Application::main).start()
+} */
+
+class Main {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val file = File("build/temporary.jks")
+
+            if (!file.exists()) {
+                file.parentFile.mkdirs()
+                generateCertificate(file)
+            }
+        }
+    }
 }
