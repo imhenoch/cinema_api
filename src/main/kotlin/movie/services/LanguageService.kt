@@ -39,7 +39,7 @@ class LanguageService {
     suspend fun updateLanguage(language: Language): Language? {
         val id = language.id
         return if (id == null) {
-            addLanguage(language)
+            null
         } else {
             query {
                 Languages.update({ Languages.id eq id }) {
