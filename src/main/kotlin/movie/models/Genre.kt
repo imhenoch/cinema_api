@@ -2,12 +2,12 @@ package movie.models
 
 import org.jetbrains.exposed.sql.Table
 
-object Languages : Table() {
+object Genres : Table() {
     val id = integer("id").primaryKey().autoIncrement()
-    val language = varchar("language", 50)
+    val genre = varchar("genre", 50)
 }
 
-data class Language(
+data class Genre(
     val id: Int?,
-    val language: String
+    val genre: String
 )
