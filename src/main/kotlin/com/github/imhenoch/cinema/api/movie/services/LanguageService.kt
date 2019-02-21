@@ -1,8 +1,8 @@
-package movie.services
+package com.github.imhenoch.cinema.api.movie.services
 
-import common.DatabaseFactory.query
-import movie.models.Language
-import movie.models.Languages
+import com.github.imhenoch.cinema.api.common.DatabaseFactory.query
+import com.github.imhenoch.cinema.api.movie.models.Language
+import com.github.imhenoch.cinema.api.movie.models.Languages
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert

@@ -53,7 +53,7 @@ mainClassName = 'io.ktor.server.netty.EngineMain'
 
 task generateJks(type: JavaExec, dependsOn: 'classes') {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'Main'
+    main = 'com.github.imhenoch.cinema.api.Main'
 }
 
 getTasksByName("run", false).first().dependsOn('generateJks')

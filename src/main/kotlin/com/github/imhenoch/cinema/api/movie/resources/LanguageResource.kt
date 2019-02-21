@@ -1,4 +1,4 @@
-package movie.resources
+package com.github.imhenoch.cinema.api.movie.resources
 
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -10,8 +10,8 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.put
 import io.ktor.routing.route
-import movie.services.LanguageService
-import movie.models.Language
+import com.github.imhenoch.cinema.api.movie.services.LanguageService
+import com.github.imhenoch.cinema.api.movie.models.Language
 
 fun Route.language(languageService: LanguageService) {
     route("/language") {

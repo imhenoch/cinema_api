@@ -1,5 +1,7 @@
+package com.github.imhenoch.cinema.api
+
 import com.fasterxml.jackson.databind.SerializationFeature
-import common.DatabaseFactory
+import com.github.imhenoch.cinema.api.common.DatabaseFactory
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.CallLogging
@@ -8,10 +10,10 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.jackson.jackson
 import io.ktor.network.tls.certificates.generateCertificate
 import io.ktor.routing.Routing
-import movie.resources.genre
-import movie.resources.language
-import movie.services.GenreService
-import movie.services.LanguageService
+import com.github.imhenoch.cinema.api.movie.resources.genre
+import com.github.imhenoch.cinema.api.movie.resources.language
+import com.github.imhenoch.cinema.api.movie.services.GenreService
+import com.github.imhenoch.cinema.api.movie.services.LanguageService
 import java.io.File
 
 fun Application.main() {
