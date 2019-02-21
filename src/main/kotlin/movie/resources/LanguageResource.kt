@@ -14,7 +14,7 @@ import movie.services.LanguageService
 import movie.models.Language
 
 fun Route.language(languageService: LanguageService) {
-    route("/movie") {
+    route("/language") {
         get("/") {
             call.respond(languageService.getAllLanguages())
         }

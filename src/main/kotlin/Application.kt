@@ -8,8 +8,10 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.jackson.jackson
 import io.ktor.network.tls.certificates.generateCertificate
 import io.ktor.routing.Routing
-import movie.services.LanguageService
+import movie.resources.genre
 import movie.resources.language
+import movie.services.GenreService
+import movie.services.LanguageService
 import java.io.File
 
 fun Application.main() {
@@ -26,6 +28,7 @@ fun Application.main() {
 
     install(Routing) {
         language(LanguageService())
+        genre(GenreService())
     }
 }
 

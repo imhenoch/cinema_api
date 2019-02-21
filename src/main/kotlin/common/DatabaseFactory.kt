@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import movie.models.Genres
 import movie.models.Languages
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils.create
@@ -15,6 +16,7 @@ object DatabaseFactory {
         Database.connect(HikariDataSource(config))
         transaction {
             create(Languages)
+            create(Genres)
         }
     }
 
