@@ -8,8 +8,8 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.jackson.jackson
 import io.ktor.network.tls.certificates.generateCertificate
 import io.ktor.routing.Routing
-import language.LanguageService
-import language.language
+import movie.services.LanguageService
+import movie.resources.language
 import java.io.File
 
 fun Application.main() {
@@ -29,6 +29,7 @@ fun Application.main() {
     }
 }
 
+@Suppress("UnusedMainParameter")
 class Main {
     companion object {
         @JvmStatic
