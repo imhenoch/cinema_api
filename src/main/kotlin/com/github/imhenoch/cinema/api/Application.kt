@@ -2,9 +2,11 @@ package com.github.imhenoch.cinema.api
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.github.imhenoch.cinema.api.common.DatabaseFactory
+import com.github.imhenoch.cinema.api.movie.resources.film
 import com.github.imhenoch.cinema.api.movie.resources.genre
 import com.github.imhenoch.cinema.api.movie.resources.language
 import com.github.imhenoch.cinema.api.movie.resources.rating
+import com.github.imhenoch.cinema.api.movie.services.FilmService
 import com.github.imhenoch.cinema.api.movie.services.GenreService
 import com.github.imhenoch.cinema.api.movie.services.LanguageService
 import com.github.imhenoch.cinema.api.movie.services.RatingService
@@ -34,6 +36,7 @@ fun Application.main() {
         language(LanguageService())
         genre(GenreService())
         rating(RatingService())
+        film(FilmService())
     }
 }
 

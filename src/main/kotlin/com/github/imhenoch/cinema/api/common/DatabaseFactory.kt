@@ -1,5 +1,8 @@
 package com.github.imhenoch.cinema.api.common
 
+import com.github.imhenoch.cinema.api.movie.models.FilmGenres
+import com.github.imhenoch.cinema.api.movie.models.FilmLanguages
+import com.github.imhenoch.cinema.api.movie.models.Films
 import com.github.imhenoch.cinema.api.movie.models.Genres
 import com.github.imhenoch.cinema.api.movie.models.Languages
 import com.github.imhenoch.cinema.api.movie.models.Ratings
@@ -19,6 +22,9 @@ object DatabaseFactory {
             create(Languages)
             create(Genres)
             create(Ratings)
+            create(Films)
+            create(FilmGenres)
+            create(FilmLanguages)
         }
     }
 
