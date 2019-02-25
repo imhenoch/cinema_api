@@ -9,12 +9,12 @@ object Films : Table() {
     val rating = reference("rating", Ratings.id)
 }
 
-object FilmLanguages : Table() {
+object FilmLanguages : Table("film_languages") {
     val filmId = reference("film_id", Films.id).primaryKey(0)
     val language = reference("language_id", Languages.id).primaryKey(1)
 }
 
-object FilmGenres : Table() {
+object FilmGenres : Table("film_genres") {
     val filmId = reference("film_id", Films.id).primaryKey(0)
     val genreId = reference("genre_id", Genres.id).primaryKey(1)
 }
