@@ -11,13 +11,13 @@ import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.update
 
 class LanguageService {
-    suspend fun getAllLanguages(): List<Language> = query {
+    suspend fun findAll(): List<Language> = query {
         Languages
             .selectAll()
             .toLanguages()
     }
 
-    suspend fun getLanguage(id: Int): Language? = query {
+    suspend fun findBy(id: Int): Language? = query {
         Languages
             .select {
                 (Languages.id eq id)
@@ -26,17 +26,17 @@ class LanguageService {
             .singleOrNull()
     }
 
-    suspend fun addLanguage(language: Language): Language {
+    suspend fun create(language: Language): Language {
         var key = 0
         query {
             key = (Languages.insert {
                 it[Languages.language] = language.language
             } get Languages.id)!!
         }
-        return getLanguage(key)!!
+        return findBy(key)!!
     }
 
-    suspend fun updateLanguage(language: Language): Language? {
+    suspend fun save(language: Language): Language? {
         val id = language.id
         return if (id == null) {
             null
@@ -46,11 +46,11 @@ class LanguageService {
                     it[Languages.language] = language.language
                 }
             }
-            getLanguage(id)
+            findBy(id)
         }
     }
 
-    suspend fun deleteLanguage(id: Int): Boolean = query {
+    suspend fun delete(id: Int): Boolean = query {
         Languages.deleteWhere { Languages.id eq id } > 0
     }
 }

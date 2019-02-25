@@ -11,13 +11,13 @@ import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.update
 
 class RatingService {
-    suspend fun getAllRatings(): List<Rating> = query {
+    suspend fun findAll(): List<Rating> = query {
         Ratings
             .selectAll()
             .toRatings()
     }
 
-    suspend fun getRating(id: Int): Rating? = query {
+    suspend fun findBy(id: Int): Rating? = query {
         Ratings
             .select {
                 (Ratings.id eq id)
@@ -26,17 +26,17 @@ class RatingService {
             .singleOrNull()
     }
 
-    suspend fun addRating(rating: Rating): Rating {
+    suspend fun create(rating: Rating): Rating {
         var key = 0
         query {
             key = (Ratings.insert {
                 it[Ratings.rating] = rating.rating
             } get Ratings.id)!!
         }
-        return getRating(key)!!
+        return findBy(key)!!
     }
 
-    suspend fun updateRating(rating: Rating): Rating? {
+    suspend fun save(rating: Rating): Rating? {
         val id = rating.id
         return if (id == null) {
             null
@@ -46,11 +46,11 @@ class RatingService {
                     it[Ratings.rating] = rating.rating
                 }
             }
-            getRating(id)
+            findBy(id)
         }
     }
 
-    suspend fun deleteRating(id: Int): Boolean = query {
+    suspend fun delete(id: Int): Boolean = query {
         Ratings.deleteWhere { Ratings.id eq id } > 0
     }
 }

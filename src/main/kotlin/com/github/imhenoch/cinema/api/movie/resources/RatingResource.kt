@@ -16,11 +16,11 @@ import io.ktor.routing.route
 fun Route.rating(ratingService: RatingService) {
     route("/rating") {
         get("/") {
-            call.respond(ratingService.getAllRatings())
+            call.respond(ratingService.findAll())
         }
 
         get("/{id}") {
-            val rating = ratingService.getRating(call.parameters["id"]?.toInt()!!)
+            val rating = ratingService.findBy(call.parameters["id"]?.toInt()!!)
             if (rating == null)
                 call.respond(HttpStatusCode.NotFound)
             else
@@ -29,12 +29,12 @@ fun Route.rating(ratingService: RatingService) {
 
         post("/") {
             val rating = call.receive<Rating>()
-            call.respond(ratingService.addRating(rating))
+            call.respond(ratingService.create(rating))
         }
 
         put("/") {
             val rating = call.receive<Rating>()
-            val updatedRating = ratingService.updateRating(rating)
+            val updatedRating = ratingService.save(rating)
             if (updatedRating == null)
                 call.respond(HttpStatusCode.NotFound)
             else
@@ -42,7 +42,7 @@ fun Route.rating(ratingService: RatingService) {
         }
 
         delete("/{id}") {
-            val removedRating = ratingService.deleteRating(call.parameters["id"]?.toInt()!!)
+            val removedRating = ratingService.delete(call.parameters["id"]?.toInt()!!)
             if (removedRating)
                 call.respond(HttpStatusCode.OK)
             else

@@ -16,11 +16,11 @@ import com.github.imhenoch.cinema.api.movie.services.GenreService
 fun Route.genre(genreService: GenreService) {
     route("/genre") {
         get("/") {
-            call.respond(genreService.getAllGenres())
+            call.respond(genreService.findAll())
         }
 
         get("/{id}") {
-            val genre = genreService.getGenre(call.parameters["id"]?.toInt()!!)
+            val genre = genreService.findBy(call.parameters["id"]?.toInt()!!)
             if (genre == null)
                 call.respond(HttpStatusCode.NotFound)
             else
@@ -29,12 +29,12 @@ fun Route.genre(genreService: GenreService) {
 
         post("/") {
             val genre = call.receive<Genre>()
-            call.respond(genreService.addGenre(genre))
+            call.respond(genreService.create(genre))
         }
 
         put("/") {
             val genre = call.receive<Genre>()
-            val updatedGenre = genreService.updateGenre(genre)
+            val updatedGenre = genreService.save(genre)
             if (updatedGenre == null)
                 call.respond(HttpStatusCode.NotFound)
             else
@@ -42,7 +42,7 @@ fun Route.genre(genreService: GenreService) {
         }
 
         delete("/{id}") {
-            val removedGenre = genreService.deleteGenre(call.parameters["id"]?.toInt()!!)
+            val removedGenre = genreService.delete(call.parameters["id"]?.toInt()!!)
             if (removedGenre)
                 call.respond(HttpStatusCode.OK)
             else

@@ -16,11 +16,11 @@ import com.github.imhenoch.cinema.api.movie.models.Language
 fun Route.language(languageService: LanguageService) {
     route("/language") {
         get("/") {
-            call.respond(languageService.getAllLanguages())
+            call.respond(languageService.findAll())
         }
 
         get("/{id}") {
-            val language = languageService.getLanguage(call.parameters["id"]?.toInt()!!)
+            val language = languageService.findBy(call.parameters["id"]?.toInt()!!)
             if (language == null)
                 call.respond(HttpStatusCode.NotFound)
             else
@@ -29,12 +29,12 @@ fun Route.language(languageService: LanguageService) {
 
         post("/") {
             val language = call.receive<Language>()
-            call.respond(languageService.addLanguage(language))
+            call.respond(languageService.create(language))
         }
 
         put("/") {
             val language = call.receive<Language>()
-            val updatedLanguage = languageService.updateLanguage(language)
+            val updatedLanguage = languageService.save(language)
             if (updatedLanguage == null)
                 call.respond(HttpStatusCode.NotFound)
             else
@@ -42,7 +42,7 @@ fun Route.language(languageService: LanguageService) {
         }
 
         delete("/{id}") {
-            val removedLanguage = languageService.deleteLanguage(call.parameters["id"]?.toInt()!!)
+            val removedLanguage = languageService.delete(call.parameters["id"]?.toInt()!!)
             if (removedLanguage)
                 call.respond(HttpStatusCode.OK)
             else
