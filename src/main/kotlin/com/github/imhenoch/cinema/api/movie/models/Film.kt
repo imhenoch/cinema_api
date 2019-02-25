@@ -11,7 +11,7 @@ object Films : Table() {
 
 object FilmLanguages : Table("film_languages") {
     val filmId = reference("film_id", Films.id).primaryKey(0)
-    val language = reference("language_id", Languages.id).primaryKey(1)
+    val languageId = reference("language_id", Languages.id).primaryKey(1)
 }
 
 object FilmGenres : Table("film_genres") {
