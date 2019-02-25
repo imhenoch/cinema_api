@@ -14,7 +14,7 @@ class GenreService {
     suspend fun getAllGenres(): List<Genre> = query {
         Genres
             .selectAll()
-            .map(this::toGenre)
+            .toGenres()
     }
 
     suspend fun getGenre(id: Int): Genre? = query {
@@ -22,7 +22,7 @@ class GenreService {
             .select {
                 (Genres.id eq id)
             }
-            .mapNotNull(this::toGenre)
+            .toGenres()
             .singleOrNull()
     }
 
@@ -53,10 +53,12 @@ class GenreService {
     suspend fun deleteGenre(id: Int): Boolean = query {
         Genres.deleteWhere { Genres.id eq id } > 0
     }
-
-    private fun toGenre(row: ResultRow): Genre =
-        Genre(
-            id = row[Genres.id],
-            genre = row[Genres.genre]
-        )
 }
+
+fun Iterable<ResultRow>.toGenres() =
+    this.map(ResultRow::toGenre)
+
+fun ResultRow.toGenre() = Genre(
+    id = this[Genres.id],
+    genre = this[Genres.genre]
+)

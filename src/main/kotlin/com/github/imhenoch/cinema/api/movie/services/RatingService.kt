@@ -14,7 +14,7 @@ class RatingService {
     suspend fun getAllRatings(): List<Rating> = query {
         Ratings
             .selectAll()
-            .map(this::toRating)
+            .toRatings()
     }
 
     suspend fun getRating(id: Int): Rating? = query {
@@ -22,7 +22,7 @@ class RatingService {
             .select {
                 (Ratings.id eq id)
             }
-            .mapNotNull(this::toRating)
+            .toRatings()
             .singleOrNull()
     }
 
@@ -53,11 +53,12 @@ class RatingService {
     suspend fun deleteRating(id: Int): Boolean = query {
         Ratings.deleteWhere { Ratings.id eq id } > 0
     }
-
-
-    private fun toRating(row: ResultRow): Rating =
-        Rating(
-            id = row[Ratings.id],
-            rating = row[Ratings.rating]
-        )
 }
+
+fun Iterable<ResultRow>.toRatings() =
+    this.map(ResultRow::toRating)
+
+fun ResultRow.toRating() = Rating(
+    id = this[Ratings.id],
+    rating = this[Ratings.rating]
+)

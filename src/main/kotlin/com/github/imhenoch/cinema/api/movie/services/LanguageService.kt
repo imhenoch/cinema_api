@@ -14,7 +14,7 @@ class LanguageService {
     suspend fun getAllLanguages(): List<Language> = query {
         Languages
             .selectAll()
-            .map(this::toLanguage)
+            .toLanguages()
     }
 
     suspend fun getLanguage(id: Int): Language? = query {
@@ -22,7 +22,7 @@ class LanguageService {
             .select {
                 (Languages.id eq id)
             }
-            .mapNotNull(this::toLanguage)
+            .toLanguages()
             .singleOrNull()
     }
 
@@ -53,10 +53,12 @@ class LanguageService {
     suspend fun deleteLanguage(id: Int): Boolean = query {
         Languages.deleteWhere { Languages.id eq id } > 0
     }
-
-    private fun toLanguage(row: ResultRow): Language =
-        Language(
-            id = row[Languages.id],
-            language = row[Languages.language]
-        )
 }
+
+fun Iterable<ResultRow>.toLanguages() =
+    this.map(ResultRow::toLanguage)
+
+fun ResultRow.toLanguage() = Language(
+    id = this[Languages.id],
+    language = this[Languages.language]
+)
