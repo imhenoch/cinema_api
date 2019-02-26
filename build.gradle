@@ -12,6 +12,7 @@ buildscript {
     ext.postgresql_version = '42.2.2'
     ext.hikaricp_version = '3.3.1'
     ext.slf4_version = '1.6.1'
+    ext.bcrypt_version = '0.4'
 
     repositories {
         mavenCentral()
@@ -47,6 +48,8 @@ dependencies {
     implementation "com.zaxxer:HikariCP:$hikaricp_version"
 
     implementation "org.slf4j:slf4j-simple:$slf4_version"
+
+    implementation "org.mindrot:jbcrypt:$bcrypt_version"
 }
 
 mainClassName = 'io.ktor.server.netty.EngineMain'
