@@ -1,6 +1,7 @@
 package com.github.imhenoch.cinema.api
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.github.imhenoch.cinema.api.auth.common.JwtConfig
 import com.github.imhenoch.cinema.api.auth.resources.login
 import com.github.imhenoch.cinema.api.auth.resources.user
 import com.github.imhenoch.cinema.api.auth.services.LoginService
@@ -16,6 +17,10 @@ import com.github.imhenoch.cinema.api.movie.services.LanguageService
 import com.github.imhenoch.cinema.api.movie.services.RatingService
 import io.ktor.application.Application
 import io.ktor.application.install
+import io.ktor.auth.Authentication
+import io.ktor.auth.authenticate
+import io.ktor.auth.jwt.JWTPrincipal
+import io.ktor.auth.jwt.jwt
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
@@ -36,13 +41,26 @@ fun Application.main() {
 
     DatabaseFactory.init()
 
+    install(Authentication) {
+        jwt {
+            verifier(JwtConfig.verifier)
+            realm = JwtConfig.realm
+            validate { credential ->
+                if (credential.payload.audience.contains(JwtConfig.audience)) JWTPrincipal(credential.payload) else null
+            }
+        }
+    }
+
     install(Routing) {
-        language(LanguageService())
-        genre(GenreService())
-        rating(RatingService())
-        film(FilmService())
-        user(UserService())
         login(LoginService())
+
+        authenticate {
+            language(LanguageService())
+            genre(GenreService())
+            rating(RatingService())
+            film(FilmService())
+            user(UserService())
+        }
     }
 }
 
