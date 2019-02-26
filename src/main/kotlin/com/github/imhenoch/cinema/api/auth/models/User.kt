@@ -13,3 +13,9 @@ data class User(
     val email: String,
     val password: String
 )
+
+data class LoggedUser(
+    val id: Int,
+    val email: String,
+    val token: String
+)

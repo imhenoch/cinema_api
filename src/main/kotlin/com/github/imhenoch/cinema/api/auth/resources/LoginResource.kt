@@ -1,6 +1,7 @@
 package com.github.imhenoch.cinema.api.auth.resources
 
 import com.github.imhenoch.cinema.api.auth.common.JwtConfig
+import com.github.imhenoch.cinema.api.auth.models.LoggedUser
 import com.github.imhenoch.cinema.api.auth.models.User
 import com.github.imhenoch.cinema.api.auth.services.LoginService
 import io.ktor.application.call
@@ -19,7 +20,7 @@ fun Route.login(loginService: LoginService) {
             val databaseUser = loginService.findBy(user.email)
             if (BCrypt.checkpw(user.password, databaseUser?.password))
                 call.respond(
-                    JwtConfig.LoggedUser(
+                    LoggedUser(
                         databaseUser!!.id!!,
                         databaseUser.email,
                         JwtConfig.generateToken(databaseUser)

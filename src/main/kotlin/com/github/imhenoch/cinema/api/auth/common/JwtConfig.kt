@@ -30,10 +30,4 @@ object JwtConfig {
             .sign(algorithm)
 
     private fun getExpiration() = Date(System.currentTimeMillis() + validityInMs)
-
-    data class LoggedUser(
-        val id: Int,
-        val email: String,
-        val token: String
-    )
 }
