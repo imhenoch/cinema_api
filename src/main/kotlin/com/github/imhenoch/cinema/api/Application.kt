@@ -53,13 +53,13 @@ fun Application.main() {
 
     install(Routing) {
         login(LoginService())
+        user(UserService())
 
         authenticate {
             language(LanguageService())
             genre(GenreService())
             rating(RatingService())
             film(FilmService())
-            user(UserService())
         }
     }
 }
