@@ -15,6 +15,10 @@ import com.github.imhenoch.cinema.api.movie.services.FilmService
 import com.github.imhenoch.cinema.api.movie.services.GenreService
 import com.github.imhenoch.cinema.api.movie.services.LanguageService
 import com.github.imhenoch.cinema.api.movie.services.RatingService
+import com.github.imhenoch.cinema.api.theatre.resources.cinema
+import com.github.imhenoch.cinema.api.theatre.resources.function
+import com.github.imhenoch.cinema.api.theatre.services.CinemaService
+import com.github.imhenoch.cinema.api.theatre.services.FunctionService
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.auth.Authentication
@@ -60,6 +64,8 @@ fun Application.main() {
             genre(GenreService())
             rating(RatingService())
             film(FilmService())
+            cinema(CinemaService())
+            function(FunctionService())
         }
     }
 }

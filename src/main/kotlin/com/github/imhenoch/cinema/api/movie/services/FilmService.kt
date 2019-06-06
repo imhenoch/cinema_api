@@ -7,6 +7,7 @@ import com.github.imhenoch.cinema.api.movie.models.FilmLanguages
 import com.github.imhenoch.cinema.api.movie.models.Films
 import com.github.imhenoch.cinema.api.movie.models.Genres
 import com.github.imhenoch.cinema.api.movie.models.Languages
+import com.github.imhenoch.cinema.api.movie.models.Rating
 import com.github.imhenoch.cinema.api.movie.models.Ratings
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.deleteWhere
@@ -53,7 +54,7 @@ class FilmService {
         savedFilm
     }
 
-    suspend fun save(film: Film): Film? =
+    suspend fun save(film: Film) =
         if (film.id == null) {
             null
         } else {
@@ -90,6 +91,15 @@ fun ResultRow.toFilm() = Film(
     name = this[Films.name],
     duration = this[Films.duration],
     rating = toRating(),
+    genres = emptyList(),
+    languages = emptyList()
+)
+
+fun ResultRow.toPartialFilm() = Film(
+    id = this[Films.id],
+    name = this[Films.name],
+    duration = this[Films.duration],
+    rating = Rating(id = 0, rating = ""),
     genres = emptyList(),
     languages = emptyList()
 )

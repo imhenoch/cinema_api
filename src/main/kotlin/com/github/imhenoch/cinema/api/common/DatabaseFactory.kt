@@ -7,6 +7,8 @@ import com.github.imhenoch.cinema.api.movie.models.Films
 import com.github.imhenoch.cinema.api.movie.models.Genres
 import com.github.imhenoch.cinema.api.movie.models.Languages
 import com.github.imhenoch.cinema.api.movie.models.Ratings
+import com.github.imhenoch.cinema.api.theatre.models.Cinemas
+import com.github.imhenoch.cinema.api.theatre.models.Functions
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +29,8 @@ object DatabaseFactory {
             create(FilmGenres)
             create(FilmLanguages)
             create(Users)
+            create(Cinemas)
+            create(Functions)
         }
     }
 
