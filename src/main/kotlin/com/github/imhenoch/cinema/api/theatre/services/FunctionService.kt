@@ -2,6 +2,7 @@ package com.github.imhenoch.cinema.api.theatre.services
 
 import com.github.imhenoch.cinema.api.common.DatabaseFactory.query
 import com.github.imhenoch.cinema.api.movie.models.Films
+import com.github.imhenoch.cinema.api.movie.services.toPartialFilm
 import com.github.imhenoch.cinema.api.theatre.models.Cinemas
 import com.github.imhenoch.cinema.api.theatre.models.Function
 import com.github.imhenoch.cinema.api.theatre.models.Functions
@@ -57,7 +58,7 @@ fun Iterable<ResultRow>.toFunctions() =
 
 fun ResultRow.toFunction() = Function(
     id = this[Functions.id],
-    film = null,
+    film = toPartialFilm(),
     cinema = toCinema(),
     date = this[Functions.date]
 )
