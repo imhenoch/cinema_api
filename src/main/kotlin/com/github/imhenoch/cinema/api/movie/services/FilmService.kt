@@ -95,15 +95,6 @@ fun ResultRow.toFilm() = Film(
     languages = emptyList()
 )
 
-fun ResultRow.toPartialFilm() = Film(
-    id = this[Films.id],
-    name = this[Films.name],
-    duration = this[Films.duration],
-    rating = Rating(id = 0, rating = ""),
-    genres = emptyList(),
-    languages = emptyList()
-)
-
 fun UpdateBuilder<Any>.from(film: Film) = this.run {
     this[Films.name] = film.name
     this[Films.duration] = film.duration

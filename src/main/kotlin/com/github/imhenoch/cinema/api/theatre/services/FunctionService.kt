@@ -1,12 +1,7 @@
 package com.github.imhenoch.cinema.api.theatre.services
 
 import com.github.imhenoch.cinema.api.common.DatabaseFactory.query
-import com.github.imhenoch.cinema.api.movie.models.Film
 import com.github.imhenoch.cinema.api.movie.models.Films
-import com.github.imhenoch.cinema.api.movie.models.Rating
-import com.github.imhenoch.cinema.api.movie.services.toFilm
-import com.github.imhenoch.cinema.api.movie.services.toPartialFilm
-import com.github.imhenoch.cinema.api.theatre.models.Cinema
 import com.github.imhenoch.cinema.api.theatre.models.Cinemas
 import com.github.imhenoch.cinema.api.theatre.models.Function
 import com.github.imhenoch.cinema.api.theatre.models.Functions
@@ -20,7 +15,7 @@ import org.jetbrains.exposed.sql.update
 
 class FunctionService {
     private val FullFunction =
-        (Functions innerJoin Films innerJoin Cinemas)
+        (Functions innerJoin Cinemas innerJoin Films)
 
     suspend fun findAll() = query {
         FullFunction
@@ -62,7 +57,7 @@ fun Iterable<ResultRow>.toFunctions() =
 
 fun ResultRow.toFunction() = Function(
     id = this[Functions.id],
-    film = toPartialFilm(),
+    film = null,
     cinema = toCinema(),
     date = this[Functions.date]
 )
